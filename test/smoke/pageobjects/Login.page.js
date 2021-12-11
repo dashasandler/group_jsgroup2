@@ -22,7 +22,7 @@ class LoginPage extends Page {
     }
 
     open() {
-        return super.open('/login');
+        return super.open('login');
     }
 }
 
