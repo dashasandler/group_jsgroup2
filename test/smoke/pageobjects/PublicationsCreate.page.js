@@ -4,24 +4,31 @@ class CreatePublicationPage extends Page {
     get pageTitle() {
         return $('div>h6');
     }
-    get publicationTitle(){
+
+    get publicationTitle() {
         return $('#title');
     }
-    get publicationImage(){
+
+    get publicationImage() {
         return $('#image');
     }
-    get publicationDescription(){
+
+    get publicationDescription() {
         return $('#description');
     }
-    get publicationContent(){
+
+    get publicationContent() {
         return $('//textarea');
     }
-    get saveButton(){
+
+    get saveButton() {
         return $('button[type="submit"]');
     }
-    get cancelButton(){
+
+    get cancelButton() {
         return $('button.mr-3');
     }
+
     async createPublication(title, image, description, content) {
         await this.open();
         await this.publicationTitle.setValue(title);
@@ -30,6 +37,7 @@ class CreatePublicationPage extends Page {
         await this.publicationContent.setValue(content);
         await this.saveButton.click();
     }
+
     open() {
         return super.open('./publications/create');
     }
