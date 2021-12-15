@@ -21,9 +21,12 @@
     "wdio-geckodriver-service": "^2.0.3"
   },
   "scripts": {
-    "test": "npm run clean && wdio wdio.conf.js && npm run report",
+    "wdio": "npx wdio wdio.conf.js",
+    "testw": "npm run cleanw && wdio wdio.conf.js && npm run report",
+    "testm": "npm run cleanm && wdio wdio.conf.js && npm run report",
     "report": "allure generate --clean",
-    "clean": "rem -rf allure-results && rem -rf allure-report"
+    "cleanw": "if exist allure-results rd /s /q allure-results && if exist allure-report rd /s /q allure-report",
+    "cleanm": "rm -rf allure-results && rm -rf allure-report"
   },
   "main": "index.js",
   "directories": {

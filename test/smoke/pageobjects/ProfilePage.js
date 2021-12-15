@@ -1,13 +1,13 @@
 const Page = require('./Page');
 
-class PeoplePage extends Page {
+class ProfilePage extends Page {
     get pageTitle() {
         return $('div>h6');
     }
 
     open() {
-        return super.open('./users');
+        return super.open('./user');
     }
 }
 
-module.exports = new PeoplePage();
+module.exports = new ProfilePage();
