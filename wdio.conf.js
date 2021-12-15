@@ -14,14 +14,14 @@ exports.config = {
             maxInstances: 1,
             browserName: 'chrome',
         },
-        // {
-        //     maxInstances: 1,
-        //     browserName: 'firefox',
-        // },
-        // {
-        //     browserName: 'MicrosoftEdge',
-        //     maxInstances: 1 // must be 1 for EdgeHtml, can be more for ChromiumEdge.
-        // },
+        {
+            maxInstances: 1,
+            browserName: 'firefox',
+        },
+        {
+            browserName: 'MicrosoftEdge',
+            maxInstances: 1 // must be 1 for EdgeHtml, can be more for ChromiumEdge.
+        },
         // {
         //     maxInstances: 1,
         //     browserName: 'safari',
