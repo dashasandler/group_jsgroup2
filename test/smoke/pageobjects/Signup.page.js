@@ -1,6 +1,6 @@
 const Page = require('./Page')
 
-class LoginPage extends Page {
+class SignupPage extends Page {
     get loginLabel() {
         return $('h3');
     }
@@ -17,7 +17,19 @@ class LoginPage extends Page {
         return $('button[type="submit"]');
     }
 
-    async login(username, password) {
+    get labelHaveAcct() {
+        return $('div.ant-row');
+    }
+
+    get infoRegSuccess() {
+        return $('//div[@class = "container"]/div[1]');
+    }
+
+    get infoEmailSent() {
+        return $('//div[@class = "container"]/div[2]');
+    }
+
+    async signup(username, password) {
         await this.open();
         await this.inputEmail.setValue(username);
         await this.inputPassword.setValue(password);
@@ -25,8 +37,8 @@ class LoginPage extends Page {
     }
 
     open() {
-        return super.open('login');
+        return super.open('signup');
     }
 }
 
-module.exports = new LoginPage();
+module.exports = new SignupPage();
