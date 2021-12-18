@@ -6,10 +6,10 @@ const PublicationViewPage = require('../pageobjects/PublicationView.page');
 const TestData = require('../../../test_data/testdata')
 const Creds = require('../../../test_data/credentials')
 
-const title = TestData.newPublication.title;
-const description = TestData.newPublication.description;
-const image = TestData.newPublication.image;
-const content = TestData.newPublication.content;
+const title = TestData.newPublication2.title;
+const description = TestData.newPublication2.description;
+const image = TestData.newPublication2.image;
+const content = TestData.newPublication2.content;
 
 describe('Create new publication', () => {
     it('Should login with valid credentials', async () => {
