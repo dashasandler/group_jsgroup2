@@ -6,7 +6,7 @@
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/register": "^7.16.0",
-    "@wdio/allure-reporter": "^7.16.10",
+    "@wdio/allure-reporter": "^7.16.11",
     "@wdio/cli": "^7.16.10",
     "@wdio/local-runner": "^7.16.10",
     "@wdio/mocha-framework": "^7.16.6",
@@ -21,12 +21,9 @@
     "wdio-geckodriver-service": "^2.0.3"
   },
   "scripts": {
-    "wdio": "npx wdio wdio.conf.js",
-    "testw": "npm run cleanw && wdio wdio.conf.js && npm run report",
-    "testm": "npm run cleanm && wdio wdio.conf.js && npm run report",
+    "test": "npm run clean && wdio wdio.conf.js && npm run report",
     "report": "allure generate --clean",
-    "cleanw": "if exist allure-results rd /s /q allure-results && if exist allure-report rd /s /q allure-report",
-    "cleanm": "rm -rf allure-results && rm -rf allure-report"
+    "clean": "rem -rf allure-results && rm -ref allure-report"
   },
   "main": "index.js",
   "directories": {
