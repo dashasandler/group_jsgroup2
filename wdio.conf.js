@@ -1,11 +1,13 @@
 const url = "https://enduring.herokuapp.com";
 exports.config = {
     specs: [
-        './test/**/specs/**/*.js'
-        //'./test/smoke/specs/userLogin.spec.js'
+        // './test/**/specs/**/*.js'
+        './test/smoke/specs/userLogin.spec.js'
     ],
     exclude: [
-
+       // './test/smoke/specs/companies.spec.js',
+       //  './test/smoke/specs/people.spec.js',
+       //  './test/smoke/specs/publications.spec.js'
     ],
 
     maxInstances: 10,

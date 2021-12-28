@@ -19,6 +19,14 @@ class PublicationsPage extends Page {
     get publicationTitle(){
         return $('div.pb-4>div:nth-child(2)>div>a')
     }
+    get logoutButton(){
+        return $('//div/span[text() = \'Logout\']')
+    }
+
+    async logout() {
+        await this.hamburgerMenu.click();
+        await this.logoutButton.click();
+    }
 
     open() {
         return super.open('./publications');
