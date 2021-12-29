@@ -1,3 +1,4 @@
 module.exports = {
-    vkcreds: { email: "student1.jsgroup2@gmail.com", password: "Te$t$tudent1" },
+    vkcreds: { email: "Megane_Lubowitz34@gmail.com", password: "Random1$" },
+    newcreds: { email: "new1@new.com", password: "Random1$" },
 };

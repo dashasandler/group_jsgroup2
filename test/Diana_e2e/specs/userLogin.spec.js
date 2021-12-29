@@ -1,8 +1,10 @@
-const LoginPage = require('../pageobjects/Login.page');
-const PublicationsPage = require('../pageobjects/Publications.page');
-const Creds = require('../../../test_data/credentials')
+const TestPublicationPage = require("../pageobjects/PublicationTest.page");
+const LoginPage = require("../pageobjects/Login.page");
 
-describe('User Login', () => {
+describe('TC1 - Publication', () => {
+    before(() => {
+        browser.maximizeWindow();
+    })
     it('Should login with valid credentials', async () => {
         await LoginPage.login(Creds.vkcreds.email, Creds.vkcreds.password);
         await expect(PublicationsPage.pageTitle).toBeExisting().true;

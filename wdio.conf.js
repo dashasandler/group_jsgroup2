@@ -2,7 +2,7 @@ const url = "https://enduring.herokuapp.com";
 exports.config = {
     specs: [
         './test/**/specs/**/*.js'
-        //'./test/smoke/specs/userLogin.spec.js'
+        //'./test/Diana_smoke/specs/userLogin.spec.js'
     ],
     exclude: [
 

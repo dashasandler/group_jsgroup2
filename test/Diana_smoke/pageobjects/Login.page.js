@@ -1,4 +1,5 @@
 const Page = require('./Page')
+const {string} = require("fast-glob/out/utils");
 
 class LoginPage extends Page {
 
@@ -6,12 +7,20 @@ class LoginPage extends Page {
         return $('#email');
     }
 
-    get inputPassword() {
+    get inputPassword(){
         return $('#password');
     }
 
     get btnSubmit() {
         return $('button[type="submit"]');
+    }
+
+    get linkPasswordReset(){
+        return $('.ant-row.ant-row-center.mt-3')
+    }
+
+    get linkSignup(){
+        return $('//div[@class="ant-row ant-row-center"]')
     }
 
     async login(username, password) {

@@ -2,5 +2,3 @@ node_modules
 .idea
 allure-report
 allure-results
-backup
-/babel.config.js
