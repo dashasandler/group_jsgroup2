@@ -1,6 +1,6 @@
 const LoginPage = require('../pageobjects/Login.page');
 const PublicationsPage = require('../pageobjects/Publications.page');
-const Creds = require('../../../test_data/credentials')
+const Creds = require('../../../../test_data/credentials')
 
 describe('User Login', () => {
     it('Should login with valid credentials', async () => {

@@ -18,7 +18,7 @@ class CreatePublicationPage extends Page {
     }
 
     get publicationContent() {
-        return $('//textarea');
+        return $('textarea');
     }
 
     get saveButton() {

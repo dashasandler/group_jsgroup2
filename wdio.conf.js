@@ -1,11 +1,14 @@
-const url = "https://enduring.herokuapp.com";
+//const url = "https://enduring.herokuapp.com";
+require('dotenv').config();
 exports.config = {
     specs: [
-        './test/**/specs/**/*.js'
-        //'./test/smoke/specs/userLogin.spec.js'
+        //'./test/**/specs/**/*.js'
+        //'./test/e2e/webui/specs/publications.spec.js',
+        //'./test/e2e/api/signupApi.spec.js'
+        './test/e2e/api/userE2E.spec.js'
     ],
     exclude: [
-
+        './test/single_tests/vk77/**/*.js',
     ],
 
     maxInstances: 10,
@@ -30,19 +33,18 @@ exports.config = {
     logLevel: 'info',
 
     bail: 0,
-    baseUrl: url,
+    baseUrl: process.env.BASE_URL,
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
     services: ['chromedriver', 'geckodriver'],
-   // safariDriverArgs: ['-p 4444'],
+    // safariDriverArgs: ['-p 4444'],
 
 
     framework: 'mocha',
-    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
+    reporters: ['spec', ['allure', {outputDir: 'allure-results'}]],
 
 
-    
     mochaOpts: {
         ui: 'bdd',
         timeout: 60000
@@ -124,7 +126,7 @@ exports.config = {
      * @param {Boolean} result.passed    true if test has passed, otherwise false
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+    afterTest: async function (test, context, {error, result, duration, passed, retries}) {
         if (!passed) {
             await browser.takeScreenshot();
         }
@@ -174,10 +176,10 @@ exports.config = {
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
     /**
-    * Gets executed when a refresh happens.
-    * @param {String} oldSessionId session ID of the old session
-    * @param {String} newSessionId session ID of the new session
-    */
+     * Gets executed when a refresh happens.
+     * @param {String} oldSessionId session ID of the old session
+     * @param {String} newSessionId session ID of the new session
+     */
     //onReload: function(oldSessionId, newSessionId) {
     //}
 }

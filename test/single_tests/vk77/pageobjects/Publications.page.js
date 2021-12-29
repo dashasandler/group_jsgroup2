@@ -7,6 +7,9 @@ class PublicationsPage extends Page {
     get hamburgerMenu(){
         return $('button#nav-bar-toggle');
     }
+    get publicationsMenuItem(){
+        return $('#publications');
+    }
     get peopleMenuItem(){
         return $('#people');
     }
@@ -21,7 +24,7 @@ class PublicationsPage extends Page {
     }
 
     open() {
-        return super.open('./publications');
+        return super.open('/publications');
     }
 }
 

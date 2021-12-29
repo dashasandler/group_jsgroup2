@@ -18,7 +18,8 @@
     "msedgedriver": "^91.0.0",
     "wdio-chromedriver-service": "^7.2.2",
     "wdio-edgedriver-service": "^1.2.0",
-    "wdio-geckodriver-service": "^2.0.3"
+    "wdio-geckodriver-service": "^2.0.3",
+    "wdio-intercept-service": "^4.2.1"
   },
   "scripts": {
     "wdio": "npx wdio wdio.conf.js",
@@ -102,6 +103,7 @@
     "diff": "^5.0.0",
     "diff-sequences": "^27.4.0",
     "dir-glob": "^3.0.1",
+    "dotenv": "^10.0.0",
     "easy-table": "^1.2.0",
     "edge-paths": "^2.2.1",
     "ejs": "^3.1.6",

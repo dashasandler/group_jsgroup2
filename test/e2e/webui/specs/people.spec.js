@@ -1,7 +1,7 @@
 const LoginPage = require('../pageobjects/Login.page');
 const PublicationsPage = require('../pageobjects/Publications.page');
 const PeoplePage = require('../pageobjects/People.page');
-const Creds = require('../../../test_data/credentials')
+const Creds = require('../../../../test_data/credentials')
 
 describe('Page users Test', () => {
     it('Should login with valid credentials', async () => {
