@@ -178,7 +178,7 @@ exports.config = {
     // },
     /**
      * Gets executed when a refresh happens.
-     * @param {String} oldSessionId session ID of the old session
+     * @param {String} oldSessionId session ID of the old sessionpn
      * @param {String} newSessionId session ID of the new session
      */
     //onReload: function(oldSessionId, newSessionId) {
