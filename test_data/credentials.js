@@ -1,4 +1,4 @@
 module.exports = {
-    vkcreds: { email: "student1.jsgroup2@gmail.com", password: "Te$t$tudent1" },
+    nt_creds: { email: "natasha_ten76@yahoo.ca", password: "Houston2021$" },
     newUser: { email: "student6@gmail.com", password: "Te$t$tudent1" },
 };

@@ -5,3 +5,5 @@ allure-results
 backup
 .env
 /babel.config.js
+test_data/credentials.js
+

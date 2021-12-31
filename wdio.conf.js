@@ -5,7 +5,8 @@ exports.config = {
         //'./test/**/specs/**/*.js'
         //'./test/e2e/webui/specs/publications.spec.js',
         //'./test/e2e/api/signupApi.spec.js'
-        './test/e2e/api/userE2E.spec.js'
+        // './test/e2e/api/userE2E.spec.js'
+        './test/single_tests/nt12/specs/companies.spec.js',
     ],
     exclude: [
         './test/single_tests/vk77/**/*.js',
