@@ -7,6 +7,7 @@ class CompaniesPage extends Page {
     open() {
         return super.open('./companies');
     }
+    
 }
 
 module.exports = new CompaniesPage();
