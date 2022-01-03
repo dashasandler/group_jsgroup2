@@ -1,5 +1,5 @@
 const Page = require('./Page');
-const {newProblem} = require("../../../test_data/testdata");
+const {newProblem} = require("../../../../test_data/testdata");
 
 class ProblemsPage extends Page {
     get pageTitle() {

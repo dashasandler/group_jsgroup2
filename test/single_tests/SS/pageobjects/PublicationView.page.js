@@ -17,6 +17,15 @@ class PublicationViewPage extends Page {
         return $('div.ant-row> button[type=\"button\"]');
     }
 
+    get likeButton() {
+        return $('//button[@id="like-btn"]');
+    }
+
+    get likesNumber() {
+        return $('//span[@class="ml-1"]');
+    }
+
+
     open() {
         return super.open('./publication');
     }

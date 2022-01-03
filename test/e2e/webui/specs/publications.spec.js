@@ -4,8 +4,8 @@ const PublicationsPage = require('../pageobjects/Publications.page');
 const PublicationsCreatePage = require('../pageobjects/PublicationsCreate.page');
 const PublicationViewPage = require('../pageobjects/PublicationView.page');
 
-const TestData = require('../../../../test_data/testdata')
-const Creds = require('../../../../test_data/credentials')
+const TestData = require('../../../../test_data/testdata');
+const Creds = require('../../../../test_data/credentials');
 //const {expect} = require("chai");
 
 const title = TestData.newPublication2.title;

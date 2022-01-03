@@ -1,15 +1,16 @@
-//const url = "https://enduring.herokuapp.com";
-require('dotenv').config();
+const url = "https://enduring.herokuapp.com";
+//require('dotenv').config();
 exports.config = {
     specs: [
         //'./test/**/specs/**/*.js'
         //'./test/e2e/webui/specs/publications.spec.js',
         //'./test/e2e/api/signupApi.spec.js'
         // './test/e2e/api/userE2E.spec.js'
-        './test/single_tests/nt12/specs/companies.spec.js',
+        //'./test/single_tests/ss/specs/signup.spec.js',
+        './test/single_tests/ss/specs/userLogin.spec.js',
     ],
     exclude: [
-        './test/single_tests/vk77/**/*.js',
+        //'./test/single_tests/vk77/**/*.js',
     ],
 
     maxInstances: 10,
@@ -34,7 +35,8 @@ exports.config = {
     logLevel: 'info',
 
     bail: 0,
-    baseUrl: process.env.BASE_URL,
+    baseUrl: url,
+    //process.env.BASE_URL,
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
