@@ -16,6 +16,9 @@ class PublicationsPage extends Page {
     get companiesMenuItem(){
         return $('#companies');
     }
+    get problemsMenuItem(){
+        return $('#problems');
+    }
     get addPublication(){
         return $('a>button');
     }
