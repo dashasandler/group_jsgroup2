@@ -1,9 +1,9 @@
 const LoginPage = require('../pageobjects/Login.page');
 const SignupPage = require('../pageobjects/Signup.page');
-const Credentials = require('../../../../test_data/credentials');
+const Credentials = require('../test_data/credentials');
 const { clearInputValue } = require('../../../../methods/helper')
-const { incorrectEmail } = require("../../../../test_data/credentials");
-const { incorrectPassword } = require("../../../../test_data/credentials");
+const { incorrectEmail } = require("../test_data/credentials");
+const { incorrectPassword } = require("../test_data/credentials");
 
 
 describe('User SignUp', () => {
@@ -22,7 +22,7 @@ describe('User SignUp', () => {
         await expect(SignupPage.userAlreadyExistsMsg).toHaveText(`User with ${Credentials.user.email} already exist`);
     });
 
-    it ("User can go to login page and back", async () => {
+    it ("User can go to login page and return back to sign up page", async () => {
         await SignupPage.loginLink.click();
         await browser.pause(2000);
         await expect(LoginPage.loginLabel).toHaveText('Login');
@@ -52,7 +52,7 @@ describe('User SignUp', () => {
         }
     });
 
-    it('User with correct email and password can sign-up', async () => {
+    it('User can sign up with correct email and password', async () => {
         await SignupPage.inputEmail.setValue(Credentials.newUser.email);
         await SignupPage.inputPassword.setValue(Credentials.newUser.password);
         await SignupPage.btnSubmit.click();

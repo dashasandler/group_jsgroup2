@@ -1,7 +1,9 @@
 const LoginPage = require('../pageobjects/Login.page');
 const PublicationsPage = require('../pageobjects/Publications.page');
 const PeoplePage = require('../pageobjects/People.page');
-const Credentials = require('../../../../test_data/credentials')
+
+const Credentials = require('../test_data/credentials')
+
 
 describe('Page users Test', () => {
 

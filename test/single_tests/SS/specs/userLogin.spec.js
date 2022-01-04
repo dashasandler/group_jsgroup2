@@ -1,10 +1,10 @@
 const LoginPage = require('../pageobjects/Login.page');
 const PasswordResetPage =require('../pageobjects/PasswordReset.page')
 const Publications = require('../pageobjects/Publications.page');
-const Credentials = require('../../../../test_data/credentials');
+const Credentials = require('../test_data/credentials');
 const { clearInputValue } = require('../../../../methods/helper');
 const SignupPage = require("../pageobjects/Signup.page");
-const {incorrectEmail} = require("../../../../test_data/credentials");
+const {incorrectEmail} = require("../test_data/credentials");
 
 describe('LOGIN PAGE', () => {
 
@@ -14,7 +14,7 @@ describe('LOGIN PAGE', () => {
 
     });
 
-    it('Should not login with non-existing email', async () => {
+    it('user can not login with not registered email', async () => {
         await LoginPage.inputEmail.setValue(Credentials.userWrongData.email);
         await LoginPage.inputPassword.setValue(Credentials.user.password);
         await LoginPage.btnSubmit.click()
@@ -22,7 +22,7 @@ describe('LOGIN PAGE', () => {
         await expect(res).toEqual("User with provided email does not exist");
     });
 
-    it('Should not login with empty email field', async () => {
+    it('user can not login with empty email field', async () => {
         await clearInputValue(await LoginPage.inputEmail);
         await browser.pause(2000);
         await LoginPage.btnSubmit.click();
@@ -30,7 +30,7 @@ describe('LOGIN PAGE', () => {
 
     });
 
-    it('Should login after user add correct email', async () => {
+    it('user can login with correct email', async () => {
         await LoginPage.inputEmail.setValue(Credentials.user.email);
         await LoginPage.btnSubmit.click();
         await expect(Publications.pageTitle).toHaveText('publications');
@@ -38,7 +38,7 @@ describe('LOGIN PAGE', () => {
         await Publications.logoutMenuItem.click();
     });
 
-    it('Should not login with un incorrect password', async () => {
+    it('user can not login with incorrect password', async () => {
         await LoginPage.inputEmail.setValue(Credentials.user.email);
         await LoginPage.inputPassword.setValue(Credentials.userWrongData.password);
         await LoginPage.btnSubmit.click();
@@ -46,7 +46,7 @@ describe('LOGIN PAGE', () => {
         await expect(res).toEqual("Incorrect password");
     });
 
-    it('Should not login with empty password field', async () => {
+    it('user can not login with empty password field', async () => {
         await clearInputValue(await LoginPage.inputPassword);
         await browser.pause(2000);
         await LoginPage.btnSubmit.click();
@@ -54,7 +54,7 @@ describe('LOGIN PAGE', () => {
 
     });
 
-    it('Should login after user add correct password', async () => {
+    it('user can login with correct password', async () => {
         await LoginPage.inputPassword.setValue(Credentials.user.password);
         await LoginPage.btnSubmit.click();
         await expect(Publications.pageTitle).toHaveText('publications');
@@ -71,7 +71,7 @@ describe('LOGIN PAGE', () => {
         await clearInputValue(await PasswordResetPage.inputEmail);
     });
 
-    it ('User can not input  incorrect e-mail', async () => {
+    it ('User can not input incorrect e-mail', async () => {
          for (let email of incorrectEmail){
             await PasswordResetPage.inputEmail.setValue(email);
             await browser.keys('Tab');

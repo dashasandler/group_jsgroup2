@@ -3,8 +3,9 @@ const PublicationsPage = require('../pageobjects/Publications.page');
 const PublicationsCreatePage = require('../pageobjects/PublicationsCreate.page');
 const PublicationViewPage = require('../pageobjects/PublicationView.page');
 
-const TestData = require('../../../../test_data/testdata')
-const Credentials = require('../../../../test_data/credentials')
+const TestData = require('../test_data/testdata')
+const Credentials = require('../test_data/credentials')
+
 
 const title = TestData.newPublication.title;
 const description = TestData.newPublication.description;
@@ -26,7 +27,8 @@ describe('Create new publication', () => {
     /**
      *the following test is disabled to avoid creating multiple publications
      * */
-    it('Create new publication using button [ADD PUBLICATION]', async () => {
+
+    it('user can create new publication using button [ADD PUBLICATION]', async () => {
         await PublicationsPage.addPublication.click();
         //need assert to check is it create new pub form is opened or not
         await PublicationsCreatePage.createPublication(title, image, description, content);
@@ -36,7 +38,8 @@ describe('Create new publication', () => {
         await browser.pause(5000)
         await expect(PublicationsPage.pageTitle).toHaveText('publications');
     });
-    it('verify user can like new publication', async () => {
+
+    it('user can like new publication', async () => {
         await expect(PublicationsPage.publicationTitle).toHaveTextContaining(title);
         await browser.pause(3000)
         await PublicationsPage.publicationTitle.click();

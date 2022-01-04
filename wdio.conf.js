@@ -6,8 +6,10 @@ exports.config = {
         //'./test/e2e/webui/specs/publications.spec.js',
         //'./test/e2e/api/signupApi.spec.js'
         // './test/e2e/api/userE2E.spec.js'
-        //'./test/single_tests/ss/specs/signup.spec.js',
-        './test/single_tests/ss/specs/userLogin.spec.js',
+
+        './test/single_tests/ss/specs/problems.spec.js',
+        //'./test/single_tests/ss/specs/userLogin.spec.js',
+
     ],
     exclude: [
         //'./test/single_tests/vk77/**/*.js',
