@@ -174,10 +174,77 @@ async function deleteUser({userID, admToken}) {
     }
 }
 
+async function deletePublication({pubID, admToken}) {
+    const queryData = JSON.stringify({
+        query: `mutation publicationDelete($pubId: ID!) {
+  publicationDelete(pubId: $pubId)
+}`,
+        variables: {
+            pubId: pubID
+        }
+    });
+    console.log("======="+queryData, pubID);
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        headers: {
+            'Authorization': `Bearer ${admToken}`,
+            'Content-Type': 'application/json'
+        },
+        data: queryData
+    });
+
+    console.log("======="+data);
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.publicationDelete;
+
+    }
+}
+
+// {
+//     "data": {
+//     "publicationDelete": "Publication deleted"
+// }
+// }
+
+// {
+//     "errors": [
+//     {
+//         "message": "ValidationError: No Publication found by provided ID",
+//         "locations": [
+//             {
+//                 "line": 2,
+//                 "column": 3
+//             }
+//         ],
+//         "path": [
+//             "publicationDelete"
+//         ],
+//         "extensions": {
+//             "code": "BAD_USER_INPUT",
+//             "exception": {
+//                 "stacktrace": [
+//                     "UserInputError: ValidationError: No Publication found by provided ID",
+//                     "    at Object.publicationDelete (/app/build/graphql/Publication/mutations/publicationDelete.js:34:11)",
+//                     "    at runMicrotasks (<anonymous>)",
+//                     "    at processTicksAndRejections (internal/process/task_queues.js:93:5)"
+//                 ]
+//             }
+//         }
+//     }
+// ],
+//     "data": {
+//     "publicationDelete": null
+// }
+// }
+
 module.exports = {
     registerUser,
     registerActivation,
     userLogin,
     createPublication,
-    deleteUser
+    deleteUser,
+    deletePublication,
 }
