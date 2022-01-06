@@ -1,20 +1,25 @@
 const LoginPage = require('../pageobjects/Login.page');
 const PublicationsPage = require('../pageobjects/Publications.page');
-const Creds = require('../../../../test_data/credentials')
-//const {expect} = require("chai");
 const PublicationsCreatePage = require("../pageobjects/PublicationsCreate.page");
 
 describe('User Login', () => {
-    it('Should not login with invalid(empty) credentials', async () => {
-        await LoginPage.login(Creds.vkcreds.email, Creds.vkcreds.password);
-        await browser.refresh();
-        await browser.pause(4000);
-        await expect(PublicationsCreatePage.publicationTitle.getText()).toEqual('');
+
+    it('Should not login without credentials', async () => {
+        await LoginPage.login();
+        await expect(LoginPage.loginLabel).toHaveText('Login');
     });
+   
+   
+    it('Should not login with invalid credentials', async () => {
+        await LoginPage.login(process.env.BASE_USER_EMAIL, process.env.ADMIN_PASSWORD);
+        await expect(LoginPage.incorrectPswMsg).toBeDisplayed();
+    });
+
     it('Should login with valid credentials', async () => {
-        await LoginPage.login(Creds.vkcreds.email, Creds.vkcreds.password);
+        await LoginPage.login(process.env.BASE_USER_EMAIL, process.env.BASE_USER_PASSWORD);
         await expect(PublicationsPage.pageTitle).toBeExisting().true;
         await expect(PublicationsPage.pageTitle).toHaveText('publications');
     });
 
+    
 });

@@ -17,6 +17,10 @@ class LoginPage extends Page {
         return $('button[type="submit"]');
     }
 
+    get incorrectPswMsg() {
+        return $('//div[contains(text(),"Incorrect password")]');
+    }
+
     async login(username, password) {
         await this.open();
         await this.inputEmail.setValue(username);
