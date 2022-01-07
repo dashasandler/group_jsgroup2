@@ -144,6 +144,46 @@ async function createPublication(
     }
 }
 
+/** Problem - Create */
+async function createProblem(
+    {
+        title,
+        company,
+        jobTitle,
+        content,
+        accessToken
+    }) {
+    const queryData = JSON.stringify({
+        query: `mutation ProblemCreate($data: ProblemInput) {  problemCreate(data: $data)
+
+}`,
+        variables: {
+            data:
+                {
+                    title,
+                    company,
+                    jobTitle,
+                    content
+                }
+        }
+    });
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.problemCreate;
+    }
+}
+
+
 /** User - Delete */
 
 async function deleteUser({userID, admToken}) {
@@ -183,7 +223,6 @@ async function deletePublication({pubID, admToken}) {
             pubId: pubID
         }
     });
-    console.log("======="+queryData, pubID);
     const {data} = await axios({
         method: 'post',
         url: API_URL,
@@ -194,7 +233,6 @@ async function deletePublication({pubID, admToken}) {
         data: queryData
     });
 
-    console.log("======="+data);
     if (data.errors) {
         return {errors: data.errors}
     } else {
@@ -203,48 +241,71 @@ async function deletePublication({pubID, admToken}) {
     }
 }
 
-// {
-//     "data": {
-//     "publicationDelete": "Publication deleted"
-// }
-// }
+async function deleteMyProblem({problemID, admToken}) {
+    const queryData = JSON.stringify({
+        query: `mutation problemDelete($problemId: ID!) {
+  problemDelete(problemId: $problemId)
+}`,
+        variables: {
+            problemId: problemID
+        }
+    });
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        headers: {
+            'Authorization': `Bearer ${admToken}`,
+            'Content-Type': 'application/json'
+        },
+        data: queryData
+    });
 
-// {
-//     "errors": [
-//     {
-//         "message": "ValidationError: No Publication found by provided ID",
-//         "locations": [
-//             {
-//                 "line": 2,
-//                 "column": 3
-//             }
-//         ],
-//         "path": [
-//             "publicationDelete"
-//         ],
-//         "extensions": {
-//             "code": "BAD_USER_INPUT",
-//             "exception": {
-//                 "stacktrace": [
-//                     "UserInputError: ValidationError: No Publication found by provided ID",
-//                     "    at Object.publicationDelete (/app/build/graphql/Publication/mutations/publicationDelete.js:34:11)",
-//                     "    at runMicrotasks (<anonymous>)",
-//                     "    at processTicksAndRejections (internal/process/task_queues.js:93:5)"
-//                 ]
-//             }
-//         }
-//     }
-// ],
-//     "data": {
-//     "publicationDelete": null
-// }
-// }
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.problemDelete;
+
+    }
+}
+/** Problem - Get ID */
+async function getProblemId(
+    {title, admToken}
+) {
+    const queryData = JSON.stringify({
+        query: `query{
+ problems(offset:0
+limit:10) {
+  _id
+  title
+}
+}`
+
+    });
+
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${admToken}`
+        }
+    })
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+         return data.data.problems.filter(el => el[title] === title)[0]._id;
+    }
+}
 
 module.exports = {
     registerUser,
     registerActivation,
     userLogin,
     createPublication,
+    createProblem,
     deleteUser,
     deletePublication,
+    getProblemId,
+    deleteMyProblem,
 }
