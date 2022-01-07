@@ -2,8 +2,8 @@ const LoginPage = require('../pageobjects/Login.page');
 const SignupPage = require('../pageobjects/Signup.page');
 const Credentials = require('../test_data/credentials');
 const { clearInputValue } = require('../../../../methods/helper')
-const { incorrectEmail } = require("../test_data/credentials");
-const { incorrectPassword } = require("../test_data/credentials");
+const incorrectEmail  = require("../test_data/credentials");
+const incorrectPassword  = require("../test_data/credentials");
 
 
 describe('User SignUp', () => {

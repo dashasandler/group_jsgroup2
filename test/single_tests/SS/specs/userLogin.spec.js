@@ -4,7 +4,7 @@ const Publications = require('../pageobjects/Publications.page');
 const Credentials = require('../test_data/credentials');
 const { clearInputValue } = require('../../../../methods/helper');
 const SignupPage = require("../pageobjects/Signup.page");
-const {incorrectEmail} = require("../test_data/credentials");
+const incorrectEmail = require("../test_data/credentials");
 
 describe('LOGIN PAGE', () => {
 
@@ -12,6 +12,11 @@ describe('LOGIN PAGE', () => {
         await browser.maximizeWindow();
         await LoginPage.open();
 
+    });
+
+    it('Should not login without credentials', async () => {
+        await LoginPage.btnSubmit.click();
+        await expect(LoginPage.loginLabel).toHaveTextContaining('Login');
     });
 
     it('user can not login with not registered email', async () => {

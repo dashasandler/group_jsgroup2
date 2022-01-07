@@ -17,10 +17,10 @@ describe('Open page problems', () => {
     })
 
     it('Open page problems', async () => {
-      await PublicationsPage.hamburgerMenu.click();
-      await PublicationsPage.problemsMenuItem.click();
-      await browser.pause(2000);
-      await expect(ProblemsPage.pageTitle).toHaveText('problems');
+        await PublicationsPage.hamburgerMenu.click();
+        await PublicationsPage.problemsMenuItem.click();
+        await browser.pause(8000);
+        await expect(ProblemsPage.pageTitle).toHaveText('problems');
     });
 
     it ('user can see that problems were filtered with operator [contains] for the field Problem name ', async () =>{
@@ -38,7 +38,7 @@ describe('Open page problems', () => {
     });
 
     it ('filtering work correctly for column[problem name] with operator [contains]', async () =>{
-       const problems = await ProblemsPage.problemRowsContainTextInColumn( TestData.filter.text,"Problem name");
+        const problems = await ProblemsPage.problemRowsContainTextInColumn( TestData.filter.text,"Problem name");
         await browser.pause(2000);
         await expect(problems.length).toEqual(TestData.filter.rowNumber)
     });
@@ -52,5 +52,15 @@ describe('Open page problems', () => {
         await expect(ProblemsPage.iconFilterNumber).toHaveText('0');
     });
 
- 
-});
+     it( 'user can create a new problem', async() =>{
+        await ProblemsPage.newProblemButton.click();
+        await ProblemCreatePage.problemTitle.setValue(TestData.newProblem.title);
+        await ProblemCreatePage.problemCompany.click()
+        await ProblemCreatePage.chooseGoogleCompany.click();
+        await ProblemCreatePage.problemContent.setValue(TestData.newProblem.content);
+        await ProblemCreatePage.problemPosition.setValue(TestData.newProblem.position);
+        await ProblemCreatePage.saveButton.click();
+        await expect(ProblemsPage.problemRowsContainTextInColumn( TestData.newProblem.title, "Problem name")).toBeDisplayed(true);
+    });
+
+ });

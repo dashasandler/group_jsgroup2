@@ -24,6 +24,13 @@ module.exports = {
         content: "Search the world's information, including webpages, images, videos and more."
     },
 
+    newProblemAPI: {
+        title: "New Problem.Google."+ Math.random(1000),
+        company: "61d86b716cf96a716c03bcdd",
+        position: "Quality Assurance Engineer",
+        content: "Search the world's information, including webpages, images, videos and more."
+    },
+
     filter:{
         text:"title",
         rowNumber: 8,
