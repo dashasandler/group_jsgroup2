@@ -1,18 +1,24 @@
 const Page = require('./Page');
+const SideBarMenu = require('./NavigationSideBarMenu')
 
 class PublicationViewPage extends Page {
     get pageTitle() {
         return $('div>h6');
     }
-    get hamburgerMenu(){
-        return $('button#nav-bar-toggle');
+    get sideBarMenu(){
+        return new SideBarMenu();
     }
-
     get publicationTitle(){
-        return $('.ant-row.mb-3+h2')
+        return $('.flex-row.mb-3+h2')
+    }
+    get publicationDescription(){
+        return $('.flex-row.mb-3+h2+div')
+    }
+    get publicationContent(){
+        return $('.flex-row.mb-3+h2+div+div>div>p')
     }
     get editButton(){
-        return $('div.ant-row> button[type=\"button\"]');
+        return $('div.flex-row> button[type="button"]');
     }
 
     open() {

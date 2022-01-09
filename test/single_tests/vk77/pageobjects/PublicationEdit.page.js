@@ -1,8 +1,13 @@
 const Page = require('./Page');
+const SideBarMenu = require('./NavigationSideBarMenu')
 
-class CreatePublicationPage extends Page {
+class EditPublicationPage extends Page {
     get pageTitle() {
         return $('div>h6');
+    }
+
+    get sideBarMenu() {
+        return new SideBarMenu();
     }
 
     get publicationTitle() {
@@ -29,19 +34,19 @@ class CreatePublicationPage extends Page {
         return $('button.mr-3');
     }
 
-    async createPublication(title, image, description, content) {
-        await this.open();
+    async updatePublication(title, image, description, content) {
+       // await this.open();
+        await this.publicationTitle.keys(['CONTROL','A'],'DELETE');
         await this.publicationTitle.setValue(title);
         await this.publicationImage.setValue(image);
         await this.publicationDescription.setValue(description);
         await this.publicationContent.setValue(content);
-        await this.publicationTitle.focus();
         await this.saveButton.click();
     }
 
     open() {
-        return super.open('/publications/create');
+        return super.open('/publication/edit');
     }
 }
 
-module.exports = new CreatePublicationPage();
+module.exports = new EditPublicationPage();

@@ -1,20 +1,12 @@
 const Page = require('./Page');
+const SideBarMenu = require('./NavigationSideBarMenu')
 
 class PublicationsPage extends Page {
     get pageTitle() {
         return $('div>h6');
     }
-    get hamburgerMenu(){
-        return $('button#nav-bar-toggle');
-    }
-    get publicationsMenuItem(){
-        return $('#publications');
-    }
-    get peopleMenuItem(){
-        return $('#people');
-    }
-    get companiesMenuItem(){
-        return $('#companies');
+    get sideBarMenu(){
+        return new SideBarMenu();
     }
     get addPublication(){
         return $('a>button');
@@ -22,9 +14,12 @@ class PublicationsPage extends Page {
     get publicationTitle(){
         return $('div.pb-4>div:nth-child(2)>div>a')
     }
+    get publicationDesciption(){
+        return $('div:nth-child(2)>div>.description')
+    }
 
     open() {
-        return super.open('/publications');
+        return super.open('./publications');
     }
 }
 

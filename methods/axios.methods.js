@@ -1,9 +1,14 @@
 const axios = require('axios');
 const API_URL = process.env.API_URL;
 
-/**'https://enduring-server.herokuapp.com/v3/graphql'*/
+/**
+ * Axios methods for GraphQL requests
+ * API link: 'https://enduring-server.herokuapp.com/v3/graphql'
+ * QA4EVERYONE_03 - JSGroup2
+ * */
 
-/** User - Register */
+
+/** New User - Register */
 
 async function registerUser(email, password) {
 
@@ -90,6 +95,7 @@ async function userLogin(email, password) {
 }
 
 /** Publication - Create */
+
 async function createPublication(
     {
         title = "title: Max length is 255 characters",
@@ -145,6 +151,7 @@ async function createPublication(
 }
 
 /** Problem - Create */
+
 async function createProblem(
     {
         title,
@@ -214,6 +221,9 @@ async function deleteUser({userID, admToken}) {
     }
 }
 
+
+/** Publication - Delete */
+
 async function deletePublication({pubID, admToken}) {
     const queryData = JSON.stringify({
         query: `mutation publicationDelete($pubId: ID!) {
@@ -223,6 +233,7 @@ async function deletePublication({pubID, admToken}) {
             pubId: pubID
         }
     });
+    console.log("===$$$>"+queryData);
     const {data} = await axios({
         method: 'post',
         url: API_URL,
@@ -240,6 +251,9 @@ async function deletePublication({pubID, admToken}) {
 
     }
 }
+
+
+/** Problem - Delete */
 
 async function deleteMyProblem({problemID, admToken}) {
     const queryData = JSON.stringify({
@@ -267,7 +281,9 @@ async function deleteMyProblem({problemID, admToken}) {
 
     }
 }
-/** Problem - Get ID */
+
+/** Problem - Get problem ID by title */
+
 async function getProblemId(
     {title, admToken}
 ) {
