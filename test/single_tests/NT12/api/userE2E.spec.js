@@ -3,7 +3,7 @@ const {
     registerActivation,
     userLogin,
     deleteUser
-} = require("../../../methods/axios.methods");
+} = require("../../../../methods/axios.methods");
 
 
 describe('User - E2E TESTS (Create/Activation/Login/Logout/UserDelete)', () => {

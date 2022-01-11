@@ -4,7 +4,7 @@ allure-report
 allure-results
 backup
 .env
-/babel.config.js
-/test_data/credentials.js
+test_data/credentials.js
 jsconfig.json
+wdio.conf.js
 
