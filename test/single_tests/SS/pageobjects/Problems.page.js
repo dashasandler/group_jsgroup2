@@ -26,6 +26,18 @@ class ProblemsPage extends Page {
         return $('//li[contains(text(),"Filter")]');
     }
 
+    get listMenuSortByAsc() {
+        return $('//li[contains(text(),"Sort by ASC")]');
+    }
+
+    get iconSortAscProblemName() {
+        return $('//div[@data-field="Problem name"and@aria-sort="ascending"]');
+    }
+
+    get iconSortDescProblemName() {
+        return $('//div[@data-field="Problem name"and@aria-sort="descending"]');
+    }
+
     get inputFilterValue() {
         return $('//input[@placeholder="Filter value"]');
     }

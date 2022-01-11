@@ -31,6 +31,13 @@ module.exports = {
         content: "Search the world's information, including webpages, images, videos and more."
     },
 
+    newUniqueProblemAPI: {
+        title: "Colorado river or BBQ jazz",
+        company: "61d86b716cf96a716c03bcdd",
+        position: "Quality Assurance Engineer",
+        content: "Search the world's information, including webpages, images, videos and more."
+    },
+
     filter:{
         text:"title",
         rowNumber: 8,

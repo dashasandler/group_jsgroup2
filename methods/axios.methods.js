@@ -161,9 +161,11 @@ async function createProblem(
         accessToken
     }) {
     const queryData = JSON.stringify({
-        query: `mutation ProblemCreate($data: ProblemInput) {  problemCreate(data: $data)
-
-}`,
+        query: `mutation ProblemCreate($data: ProblemInput) {  problemCreate(data: $data) {
+                _id
+                title
+                }
+            }`,
         variables: {
             data:
                 {
@@ -174,6 +176,7 @@ async function createProblem(
                 }
         }
     });
+
     const {data} = await axios({
         method: 'post',
         url: API_URL,
@@ -182,11 +185,12 @@ async function createProblem(
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`
         }
-    })
+    });
+
     if (data.errors) {
         return {errors: data.errors}
     } else {
-        return data.data.problemCreate;
+        return data.data.problemCreate._id;
     }
 }
 
@@ -233,7 +237,6 @@ async function deletePublication({pubID, admToken}) {
             pubId: pubID
         }
     });
-    console.log("===$$$>"+queryData);
     const {data} = await axios({
         method: 'post',
         url: API_URL,
@@ -252,18 +255,15 @@ async function deletePublication({pubID, admToken}) {
     }
 }
 
-
-/** Problem - Delete */
-
-async function deleteMyProblem({problemID, admToken}) {
-    const queryData = JSON.stringify({
-        query: `mutation problemDelete($problemId: ID!) {
-  problemDelete(problemId: $problemId)
-}`,
-        variables: {
-            problemId: problemID
-        }
-    });
+async function deleteProblem({problemID, admToken}) {
+     const queryData = JSON.stringify({
+            query: `mutation problemDelete ($problemId: ID!) {
+        problemDelete(problemId: $problemId)
+        }`,
+            variables: {
+                problemId :problemID
+            }
+        });
     const {data} = await axios({
         method: 'post',
         url: API_URL,
@@ -282,37 +282,39 @@ async function deleteMyProblem({problemID, admToken}) {
     }
 }
 
-/** Problem - Get problem ID by title */
+// /** Problem - Get ID */
+// async function getProblemId (
+//     {title, admToken}
+// ) {
+//     const queryData = JSON.stringify({
+//         query: `query{
+//  problems(offset:0
+// limit:10) {
+//   _id
+//   title
+// }
+// }`
+//
+//     });
+//
+//     const {data} = await axios({
+//         method: 'post',
+//         url: API_URL,
+//         data: queryData,
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${admToken}`
+//         }
+//     })
+//     if (data.errors) {
+//         return {errors: data.errors}
+//     } else {
+//         return data.data.problems.filter(el => el.title === title)._id;
+//     }
+//}
 
-async function getProblemId(
-    {title, admToken}
-) {
-    const queryData = JSON.stringify({
-        query: `query{
- problems(offset:0
-limit:10) {
-  _id
-  title
-}
-}`
 
-    });
 
-    const {data} = await axios({
-        method: 'post',
-        url: API_URL,
-        data: queryData,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${admToken}`
-        }
-    })
-    if (data.errors) {
-        return {errors: data.errors}
-    } else {
-        return data.data.problems.filter(el => el[title] === title)[0]._id;
-    }
-}
 
 module.exports = {
     registerUser,
@@ -322,6 +324,6 @@ module.exports = {
     createProblem,
     deleteUser,
     deletePublication,
-    getProblemId,
-    deleteMyProblem,
+    //getProblemId,
+    deleteProblem,
 }

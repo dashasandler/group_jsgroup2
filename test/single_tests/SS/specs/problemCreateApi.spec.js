@@ -1,80 +1,131 @@
 const {
     userLogin,
     createProblem,
-    listProblems,
+    //listProblems,
     deleteProblem
-   } = require("../../../../methods/axios.methods");
+} = require("../../../../methods/axios.methods");
 const TestData =require("../test_data/testdata");
 const Creds = require("../test_data/credentials")
+const LoginPage = require("../pageobjects/Login.page");
+const Credentials = require("../test_data/credentials");
+const PublicationsPage = require("../pageobjects/Publications.page");
+const ProblemsPage = require("../pageobjects/Problems.page");
 
 
 
-describe('Problem E2E TESTS (CreateAndDeleteProblem)', () => {
+describe('Checking Ploblem page', ()=> {
 
-    let result = null;
-    let  userToken = null;
-    it('API - new user log in', async () => {
-        result = await userLogin(Creds.user.email, Creds.user.password);
-        userToken = result.accessToken;
-        if (result.errors) {
-            console.error("Login failed,user with provided email does not exist!!!")
-        } else {
-           expect(!!result.accessToken).toBe(true);
-        }
+
+    var userLoginResponse;
+    var userToken;
+    before( async () => {
+        userLoginResponse = await( userLogin(Credentials.user.email, Credentials.user.password));
+        await LoginPage.login(Credentials.user.email, Credentials.user.password);
+        userToken = userLoginResponse.accessToken;
     });
 
 
-    it('API - create problem', async () => {
-            result = await createProblem({title: TestData.newProblemAPI.title,
-            content: TestData.newProblemAPI.content,
-            company: TestData.newProblemAPI.company,
-            jobTitle: TestData.newProblemAPI.position,
-            accessToken: userToken});
-        if (result.errors) {
-            expect(result.errors.message).not.toEqual("Problem created");;
-            console.error('ProblemCreate test - failed!!!!')
-        } else {
-            expect(result).toEqual("Problem created");
-          }
 
+    const arrProblemsId = [];
+
+    it('Create 5 problems for tests', async () => {
+
+        let result = null;
+        for (let i = 1; i < 6; i++) {
+
+            result = await( createProblem({
+                title: TestData.newUniqueProblemAPI.title + `  ${i}`,
+                company: TestData.newUniqueProblemAPI.company,
+                jobTitle: TestData.newUniqueProblemAPI.position + ` #${i}`,
+                content: TestData.newUniqueProblemAPI.content,
+                accessToken: userToken
+            }));
+
+            arrProblemsId.push(result);
+        }
+        await expect(arrProblemsId.length).toEqual(5);
     });
 
 
-    it('API - find problem', async () => {
-        const title =TestData.newProblemAPI.title;
-        result = await listProblems({
-            offset:0,
-            limit:5,
-            accessToken: userToken});
+    it('Open page problems', async () => {
+        await PublicationsPage.hamburgerMenu.click();
+        await PublicationsPage.problemsMenuItem.click();
+        await expect(ProblemsPage.pageTitle).toHaveText('problems');
+    });
 
-        console.log(Array.isArray(result));
-        console.log(Object.keys(result));
-        result = result.filter(el=>el.title===title)._id;
+    it ('user can see that problems were filtered with operator [contains] for the field Problem name ', async () =>{
+        await ProblemsPage.problemNameField.moveTo();
+        await ProblemsPage.problemNameFieldMenuIcon.click();
+        await browser.pause(1000);
+        await ProblemsPage.listMenuFilter.click();
+        await browser.pause(1000);
+        await ProblemsPage.inputFilterValue.setValue("river");
+        await browser.pause(1000);
+        await ProblemsPage.iconFilter.click();
+        await browser.pause(1000);
+        await expect(ProblemsPage.iconFilterNumber).toHaveText('1');
+        await browser.keys("Tab")
+    });
 
-        if (result.errors) {
-            console.error('findProblemID test - failed!!!!')
-        } else {
+    it ('filtering work correctly for column[problem name] with operator [contains]', async () =>{
+        const problems = await ProblemsPage.problemRowsContainTextInColumn( "river","Problem name");
+        await browser.pause(2000);
+        await expect(problems.length).toEqual(5)
+    });
 
-            return result;
-        }
-     });
+    it('arrow sorting by ASC is displayed for [Problem name] column', async() =>{
+        await ProblemsPage.problemNameField.click();
+        await browser.pause(2000);
+        await expect(ProblemsPage.iconSortAscProblemName).toExist(true);
+    });
 
 
-    it('API - delete problem', async () => {
+    // it('Arrow sorting by ASC works correctly for [Problem name] column', async() =>{
+    //     const problemsASC = await ProblemsPage.problemRowsContainTextInColumn("river","Problem name");
+    //     await browser.pause(2000);
+    //     problemsASC.forEach(el=>{
+    //         console.log(el.getText())})
+    //
+    //     console.log("2****************"+ problemsASC.join(','));
+    //     console.log("3****************"+ problemsASC.sort((a,b)=> a-b).join(','))
+    //     await expect(problemsASC.sort((a,b)=> b-a).join(',')).toEqual(problemsASC.join(','));
+    // });
 
+
+    it('arrow sorting by DESC is displayed for [Problem name] column', async() =>{
+        await ProblemsPage.problemNameField.click();
+        await browser.pause(2000);
+        await expect(ProblemsPage.iconSortDescProblemName).toBePresent(true);
+    });
+
+    it('problems can be unsorted for [Problem name] column', async() =>{
+        await ProblemsPage.problemNameField.click();
+        await browser.pause(2000);
+        await expect(ProblemsPage.iconSortAscProblemName).not.toBePresent(true);
+    });
+
+
+    it('user can cancel filtering ', async () =>{
+        await ProblemsPage.iconFilter.click();
+        await browser.pause(2000);
+        await ProblemsPage.deleteFilterButton.click();
+        await ProblemsPage.iconFilter.click();
+        await browser.pause(2000);
+        await expect(ProblemsPage.iconFilterNumber).toHaveText('0');
+    });
+
+
+
+    it('API - delete problems', async () => {
         const adminLoginRes = (await userLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD));
-        /** admin token to delete operation in API*/
         const admToken = adminLoginRes.accessToken;
 
-        const ID =result;
-        result = await deleteProblem({problemId: ID, admToken});
+        for (let i = 0; i < arrProblemsId.length; i++) {
 
-        if (result.errors) {
-            expect(result.errors.message).toHaveTextContaining("ValidationError: No Publication found by provided ID");
-            console.error('Test: API - problem delete test - failed!!!!')
-        } else {
-            expect(result).toHaveTextContaining("Problem deleted");
+            const result = (await deleteProblem({ problemID: arrProblemsId[i], admToken: admToken}));
+            expect(result).toHaveTextContaining("The Problem and all its Solutions have been deleted");
         }
     });
 
-  });
+
+});
