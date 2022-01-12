@@ -38,6 +38,10 @@ class PublicationsPage extends Page {
         return $('//div[@id="logout"]')
     }
 
+    get likesNumber() {
+        return $('(//span[@class="ml-1"])[1]')
+    }
+
 
     open() {
         return super.open('./publications');

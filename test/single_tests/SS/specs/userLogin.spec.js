@@ -4,7 +4,7 @@ const Publications = require('../pageobjects/Publications.page');
 const Credentials = require('../test_data/credentials');
 const { clearInputValue } = require('../../../../methods/helper');
 const SignupPage = require("../pageobjects/Signup.page");
-const incorrectEmail = require("../test_data/credentials");
+const { incorrectEmail } = require("../test_data/credentials");
 
 describe('LOGIN PAGE', () => {
 
@@ -76,7 +76,7 @@ describe('LOGIN PAGE', () => {
         await clearInputValue(await PasswordResetPage.inputEmail);
     });
 
-    it ('User can not input incorrect e-mail', async () => {
+    it ('User can not input incorrect e-mail for PasswordReset', async () => {
          for (let email of incorrectEmail){
             await PasswordResetPage.inputEmail.setValue(email);
             await browser.keys('Tab');

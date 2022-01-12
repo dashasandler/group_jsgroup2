@@ -58,7 +58,12 @@ class ProblemsPage extends Page {
         return $$(`//div[@data-field="${column}"]/a[normalize-space("${text}")]`);
     }
 
+    //  problemsRowsTable(i,column) {
+    //      return $(`//div[@data-rowindex="${i}"]/div[@data-field="${column}"]/a`);
+    // }
 
+    //return $(`//div[@data-field="${column}"and@role="cell"]/a`);
+    //     }
 
     open() {
         return super.open('./problems');

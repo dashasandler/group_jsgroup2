@@ -28,7 +28,7 @@ describe('Checking Ploblem page', ()=> {
 
     const arrProblemsId = [];
 
-    it('Create 5 problems for tests', async () => {
+    it('API - Create 5 problems for tests', async () => {
 
         let result = null;
         for (let i = 1; i < 6; i++) {
@@ -81,14 +81,37 @@ describe('Checking Ploblem page', ()=> {
 
 
     // it('Arrow sorting by ASC works correctly for [Problem name] column', async() =>{
-    //     const problemsASC = await ProblemsPage.problemRowsContainTextInColumn("river","Problem name");
-    //     await browser.pause(2000);
-    //     problemsASC.forEach(el=>{
-    //         console.log(el.getText())})
     //
-    //     console.log("2****************"+ problemsASC.join(','));
-    //     console.log("3****************"+ problemsASC.sort((a,b)=> a-b).join(','))
-    //     await expect(problemsASC.sort((a,b)=> b-a).join(',')).toEqual(problemsASC.join(','));
+    //     function  arrayRows(i,column) {
+    //         const arrayRows =[];
+    //         let element;
+    //
+    //         for(i =1; i < 6; i++){
+    //             element =  ProblemsPage.problemsRowsTable(`${i}`, "Problem name").getText;
+    //             arrayRows.push(element);
+    //             console.log(element)
+    //         }
+    //         return arrayRows;
+    //     };
+    //
+    //     arrayRows(6, "Problem name");
+    //
+    //     // const problemsASC = await ProblemsPage.problemsRowsTable("Problem name");
+    //
+    //     console.log("#######&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    //     console.log(arrayRows());
+    //     console.log("#######");
+    //     // await browser.pause(2000);
+    //     // console.log("-------------------------****************+++++++++++++++++++++++++++++");
+    //     // console.log(Array.isArray(problemsASC));
+    //     // console.log(problemsASC[0]);
+    //     // console.log(problemsA.getText);
+    //
+    //     console.log("-------------------------****************+++++++++++++++++++++++++++++");
+    // console.log( arrayRows(6, "Problem name"))
+    //
+    //     //await expect(problemsASC.sort((a,b)=> b-a).join(',')).toEqual(problemsASC).join(',');
+    //
     // });
 
 

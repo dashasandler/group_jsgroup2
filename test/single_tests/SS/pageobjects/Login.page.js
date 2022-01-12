@@ -22,11 +22,19 @@ class LoginPage extends Page {
     }
 
     get signupLink() {
-        return $('//div[@class="text-center"]/a');
+        return $('//a[contains(text(),"Sign Up")]');
     }
 
     get restoreLink() {
         return $('//div[@class="mt-3 text-center"]/a');
+    }
+
+    get alertNoActivation() {
+        return $('//div[@class="MuiAlert-message css-1w0ym84"]/div/div');
+    }
+
+    get alertActivationLink() {
+        return $('//div[@class="MuiAlert-message css-1w0ym84"]/div/a');
     }
 
     async login(username, password) {

@@ -4,5 +4,5 @@ module.exports = {
     userWrongData: {email: "RobertLouisStevenson_@gmail.com", password: "TreasureIsland1883."},
     incorrectEmail: ["mysite.ourearth.com", "mysite@.com.my", "@you.me.net", "mysite123@gmail.b", "mysite@.org.org",
         ".mysite@mysite.org", "mysite()*@gmail.com", "&<-}*@gmail.com", "mysite..1234@yahoo.com", "mysite@.c"],
-    incorrectPassword: ["1fF!2", "1gFFF2", "1>fgggg2fgfh?88()!@#$%^&}{||||?????", "1+HFFF236"],
+    incorrectPassword: ["1fF!2", "1gFFF2", "1>fgggg2fgfh?88()!@#$%^&}{||||?????", "1+HFFF236"]
 };

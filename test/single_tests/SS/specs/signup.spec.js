@@ -2,8 +2,8 @@ const LoginPage = require('../pageobjects/Login.page');
 const SignupPage = require('../pageobjects/Signup.page');
 const Credentials = require('../test_data/credentials');
 const { clearInputValue } = require('../../../../methods/helper')
-const incorrectEmail  = require("../test_data/credentials");
-const incorrectPassword  = require("../test_data/credentials");
+const { incorrectEmail } = require("../test_data/credentials");
+const { incorrectPassword } = require("../test_data/credentials");
 
 
 describe('User SignUp', () => {
@@ -18,19 +18,17 @@ describe('User SignUp', () => {
         await SignupPage.inputEmail.setValue(Credentials.user.email);
         await SignupPage.inputPassword.setValue(Credentials.user.password);
         await SignupPage.btnSubmit.click();
-        await browser.pause(2000);
         await expect(SignupPage.userAlreadyExistsMsg).toHaveText(`User with ${Credentials.user.email} already exist`);
     });
 
     it ("User can go to login page and return back to sign up page", async () => {
         await SignupPage.loginLink.click();
-        await browser.pause(2000);
+        // await browser.pause(2000);
         await expect(LoginPage.loginLabel).toHaveText('Login');
         await LoginPage.signupLink.click()
-        await browser.pause(2000);
+        // await browser.pause(2000);
         await expect(SignupPage.signupLabel).toHaveText('Sign Up');
     });
-
 
     it ('User can not  sign up with incorrect e-mail', async () => {
 
@@ -59,6 +57,19 @@ describe('User SignUp', () => {
         await browser.pause(2000);
         await expect(SignupPage.infoRegSuccess).toHaveText('Registration successful!');
         await expect(SignupPage.infoEmailSent).toHaveText('Activation link was sent to email');
+        await browser.refresh();
+    });
+
+
+    it ("User after sign up can't log in without activation", async () => {
+        await SignupPage.loginLink.click();
+        await browser.pause(2000);
+        await SignupPage.loginLink.click();
+        await LoginPage.inputEmail.setValue(Credentials.newUser.email);
+        await LoginPage.inputPassword.setValue(Credentials.newUser.password);
+        await LoginPage.btnSubmit.click()
+        await expect(LoginPage.alertNoActivation).toHaveText("User is not activated. Please use activation link from registration email!");
+        await expect(LoginPage.alertActivationLink).toHaveText("Or resend new activation link");
     });
 
 });

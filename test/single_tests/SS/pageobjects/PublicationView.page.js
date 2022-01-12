@@ -25,6 +25,9 @@ class PublicationViewPage extends Page {
         return $('//span[@class="ml-1"]');
     }
 
+    get arrowBack() {
+        return $('//div[@class="d-flex flex-row justify-content-between mb-3"]/a');
+    }
 
     open() {
         return super.open('./publication');

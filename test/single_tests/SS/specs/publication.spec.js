@@ -14,37 +14,49 @@ const content = TestData.newPublication.content;
 
 describe('Create new publication', () => {
 
-    before( () => {
-        browser.maximizeWindow();
-    });
-
-    it('Should login with valid credentials', async () => {
+    before( async () => {
+        await browser.maximizeWindow();
+        await LoginPage.open();
         await LoginPage.login(Credentials.user.email, Credentials.user.password);
-        await expect(PublicationsPage.pageTitle).toBeExisting().true;
-        await browser.pause(5000)
-        await expect(PublicationsPage.pageTitle).toHaveText('publications');
-    });
-    /**
-     *the following test is disabled to avoid creating multiple publications
-     * */
+        await browser.pause(2000);
+    })
 
     it('user can create new publication using button [ADD PUBLICATION]', async () => {
         await PublicationsPage.addPublication.click();
-        //need assert to check is it create new pub form is opened or not
         await PublicationsCreatePage.createPublication(title, image, description, content);
         await PublicationsPage.hamburgerMenu.click();
         await PublicationsPage.publicationsMenuItem.click();
-        //need assert to check is it create new pub form is opened or not
-        await browser.pause(5000)
-        await expect(PublicationsPage.pageTitle).toHaveText('publications');
+        await expect(PublicationsPage.publicationTitle).toHaveTextContaining(title);
     });
 
     it('user can like new publication', async () => {
-        await expect(PublicationsPage.publicationTitle).toHaveTextContaining(title);
-        await browser.pause(3000)
         await PublicationsPage.publicationTitle.click();
         await PublicationViewPage.likeButton.click();
         await expect(PublicationViewPage.likesNumber).toHaveText("1");
+
+
+    });
+
+    it('user can see increasing the number of likes for the publication in the list of publications', async () => {
+        await PublicationViewPage.hamburgerMenu.click();
+        await PublicationsPage.publicationsMenuItem.click();
+        await browser.pause(2000);
+        await expect(PublicationsPage.likesNumber).toHaveText("1");
+
+    });
+
+    it('user can unlike new publication', async () => {
+        await PublicationsPage.publicationTitle.click();
+        await browser.pause(2000);
+        await PublicationViewPage.likeButton.click();
+        await expect(PublicationViewPage.likesNumber).toHaveText("");
+    });
+
+    it('user can see reducing the number of likes for the publication in the list of publications', async () => {
+        await PublicationViewPage.hamburgerMenu.click();
+        await PublicationsPage.publicationsMenuItem.click();
+        await browser.pause(2000);
+        await expect(PublicationsPage.likesNumber).toHaveText("");
 
     });
 });

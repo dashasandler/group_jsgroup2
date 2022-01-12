@@ -13,7 +13,7 @@ describe('Open page problems', () => {
         await browser.maximizeWindow();
         await LoginPage.open();
         await LoginPage.login(Credentials.user.email, Credentials.user.password);
-        await browser.pause(3000);
+        await browser.pause(2000);
     })
 
     it('Open page problems', async () => {

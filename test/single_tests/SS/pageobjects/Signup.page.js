@@ -22,7 +22,7 @@ class SignupPage extends Page {
     }
 
     get loginLink() {
-        return $('//div[@class="mt-3 text-center"]/a');
+        return $('//a[contains(text(),"Login")]');
     }
 
     get infoRegSuccess() {
