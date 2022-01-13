@@ -83,6 +83,15 @@ describe( 'Checking Ploblem page', ()=> {
 
 
     // it('Arrow sorting by ASC works correctly for [Problem name] column', async() =>{
+
+    //     const problemsASC = await ProblemsPage.problemRowsContainTextInColumn("river","Problem name");
+    //     await browser.pause(2000);
+    //     problemsASC.forEach(el=>{
+    //         console.log(el.getText())})
+    //
+    //     console.log("2****************"+ problemsASC.join(','));
+    //     console.log("3****************"+ problemsASC.sort((a,b)=> a-b).join(','))
+    //     await expect(problemsASC.sort((a,b)=> b-a).join(',')).toEqual(problemsASC.join(','));
     //
     //     function  arrayRows(limit,column) {
     //         const arrayRows =[];
@@ -114,6 +123,7 @@ describe( 'Checking Ploblem page', ()=> {
     //
     //     //await expect(problemsASC.sort((a,b)=> b-a).join(',')).toEqual(problemsASC).join(',');
     //
+    // });
     //});
 
 

@@ -444,6 +444,76 @@ async function deleteProblem({problemID, admToken}) {
     }
 }
 
+async function getProblemsList (accessToken) {
+    const queryData = JSON.stringify({
+        query: `query{
+ problems(offset:0
+limit:10000) {
+  _id
+  title
+  content
+  company{
+    _id
+    description
+  }
+  jobTitle
+}
+}`
+    });
+
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.problems;
+    }
+}
+
+async function getProblem (
+    {problemId, accessToken}
+    ) {
+    const queryData = JSON.stringify({
+        query: `query problem ($problemId: ID!) {
+            problem (problemId: $problemId)
+        {
+          _id
+          title
+          content
+          company{title  _id}
+          owner{
+            email
+          }
+        }
+        }`,
+        variables: {"problemId":problemId}
+    });
+
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.problem;
+    }
+}
+
+
+
 module.exports = {
     registerUser,
     registerActivation,
@@ -455,5 +525,8 @@ module.exports = {
     getProblem,
     deleteUser,
     deletePublication,
-    deleteProblem
+    //getProblemId,
+    deleteProblem,
+    getProblemsList,
+    getProblem,
 }

@@ -5,10 +5,21 @@ exports.config = {
         //'./test/**/specs/**/*.js'
         //'./test/e2e/webui/specs/publications.spec.js',
         //'./test/e2e/api/signupApi.spec.js'
+
+
+        './test/single_tests/ss/specs/problemCreateApi.spec.js',
+        //'./test/single_tests/ss/specs/userLogin.spec.js',
+
+        './test/single_tests/ss/specs/signup.spec.js',
+
+        //'./test/single_tests/ss/specs/problemCreateApi.spec.js',
+        //'./test/single_tests/vk77/specs/publication.spec.js'
+
         //'./test/single_tests/ss/specs/signup.spec.js'
 
         //'./test/single_tests/ss/specs/problemCreateApi.spec.js',
-        './test/single_tests/ss/specs/signup.spec.js'
+        './test/single_tests/ss/specs/signup.spec.js',
+
 
     ],
     exclude: [
