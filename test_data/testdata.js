@@ -11,9 +11,9 @@ module.exports = {
         content: 'Berries berries berries berries berries berries berries berries berries'
     },
     newPublication3: {
-        title: "JSGroup2 title berries + berries =)",
-        description: "Description for berries",
-        image: "https://keypennews.org/uploads/original/20210526-151237-21_06-KP-Cooks-berries-ol.jpg",
+        title: "JSGroup2 title friends!",
+        description: "Description for friend",
+        image: "https://www.languagewire.com/-/media/blog/google-translate/google-friend-2-1200x627.jpg",
         content: 'Berries2 berries berries1 berries berries4 berries 5berries 7berries berries'
     },
 

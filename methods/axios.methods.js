@@ -150,6 +150,99 @@ async function createPublication(
     }
 }
 
+/** Publication - publication */
+async function getPublication(pubID,accessToken) {
+    const queryData = JSON.stringify({
+        query: `query publication ($pubId: ID!) {
+      publication (pubId: $pubId) {
+        _id
+        title
+        description
+        content
+        image
+        owner{
+            _id
+            email
+            firstName
+            lastName
+            }
+        likes {
+            _id
+            email
+            firstName
+            lastName
+            }
+        createdAt
+        updatedAt
+      }
+    }`,
+        variables: {"pubId": pubID}
+    });
+    console.log("++++>"+queryData)
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+    console.log("===>:",data)
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.publication;
+    }
+}
+
+/** Publication - publications */
+async function getPublicationsList(accessToken) {
+    const queryData = JSON.stringify({
+        query: `query publications ($offset: Int, $limit: Int) {
+    publications (offset: $offset, limit: $limit) {
+        _id
+        title
+        description
+        content
+        image
+        owner{
+            _id
+            email
+            firstName
+            lastName
+            }
+        likes {
+            _id
+            email
+            firstName
+            lastName
+            }
+        createdAt
+        updatedAt
+      }
+    }`,
+        variables: {"offset":0,"limit":0}
+    });
+    console.log("++++>"+queryData)
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+    console.log("===>:",data)
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.publications;
+    }
+}
+
+
 /** Problem - Create */
 
 async function createProblem(
@@ -194,6 +287,75 @@ async function createProblem(
     }
 }
 
+/** Problems */
+async function getProblemsList (accessToken) {
+    const queryData = JSON.stringify({
+        query: `query{
+ problems(offset:0
+limit:10000) {
+  _id
+  title
+  content
+  company{
+    _id
+    description
+  }
+  jobTitle
+}
+}`
+    });
+
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.problems;
+    }
+}
+
+/** Problem */
+async function getProblem (
+    {problemId, accessToken}
+) {
+    const queryData = JSON.stringify({
+        query: `query problem ($problemId: ID!) {
+            problem (problemId: $problemId)
+        {
+          _id
+          title
+          content
+          company{title  _id}
+          owner{
+            email
+          }
+        }
+        }`,
+        variables: {"problemId":problemId}
+    });
+
+    const {data} = await axios({
+        method: 'post',
+        url: API_URL,
+        data: queryData,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+    if (data.errors) {
+        return {errors: data.errors}
+    } else {
+        return data.data.problem;
+    }
+}
 
 /** User - Delete */
 
@@ -225,7 +387,6 @@ async function deleteUser({userID, admToken}) {
     }
 }
 
-
 /** Publication - Delete */
 
 async function deletePublication({pubID, admToken}) {
@@ -237,6 +398,7 @@ async function deletePublication({pubID, admToken}) {
             pubId: pubID
         }
     });
+    console.log("pub delete query=>",queryData)
     const {data} = await axios({
         method: 'post',
         url: API_URL,
@@ -246,7 +408,7 @@ async function deletePublication({pubID, admToken}) {
         },
         data: queryData
     });
-
+    console.log("pub delete=>",data)
     if (data.errors) {
         return {errors: data.errors}
     } else {
@@ -256,14 +418,14 @@ async function deletePublication({pubID, admToken}) {
 }
 
 async function deleteProblem({problemID, admToken}) {
-     const queryData = JSON.stringify({
-            query: `mutation problemDelete ($problemId: ID!) {
+    const queryData = JSON.stringify({
+        query: `mutation problemDelete ($problemId: ID!) {
         problemDelete(problemId: $problemId)
         }`,
-            variables: {
-                problemId :problemID
-            }
-        });
+        variables: {
+            problemId: problemID
+        }
+    });
     const {data} = await axios({
         method: 'post',
         url: API_URL,
@@ -282,48 +444,16 @@ async function deleteProblem({problemID, admToken}) {
     }
 }
 
-// /** Problem - Get ID */
-// async function getProblemId (
-//     {title, admToken}
-// ) {
-//     const queryData = JSON.stringify({
-//         query: `query{
-//  problems(offset:0
-// limit:10) {
-//   _id
-//   title
-// }
-// }`
-//
-//     });
-//
-//     const {data} = await axios({
-//         method: 'post',
-//         url: API_URL,
-//         data: queryData,
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${admToken}`
-//         }
-//     })
-//     if (data.errors) {
-//         return {errors: data.errors}
-//     } else {
-//         return data.data.problems.filter(el => el.title === title)._id;
-//     }
-//}
-
-
-
-
 module.exports = {
     registerUser,
     registerActivation,
     userLogin,
     createPublication,
+    getPublication,
     createProblem,
+    getProblemsList,
+    getProblem,
     deleteUser,
     deletePublication,
-    //getProblemId,
-    deleteProblem,
+    deleteProblem
 }

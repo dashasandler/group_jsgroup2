@@ -17,6 +17,17 @@ class LoginPage extends Page {
         return $('button[type="submit"]');
     }
 
+    get linkRestore() {
+        return $('a[href="/passwordReset"]');
+    }
+
+    get linkSignUp() {
+        return $('//a[@href="/signup"]');
+    }
+    get incorrectPswMsg() {
+        return $('//div[contains(text(),"Incorrect password")]');
+    }
+
     async login(username, password) {
         await this.open();
         await this.inputEmail.setValue(username);
