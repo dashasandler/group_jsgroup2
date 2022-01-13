@@ -13,7 +13,7 @@ const ProblemsPage = require("../pageobjects/Problems.page");
 
 
 
-describe('Checking Ploblem page', ()=> {
+describe( 'Checking Ploblem page', ()=> {
 
 
     var userLoginResponse;
@@ -50,6 +50,7 @@ describe('Checking Ploblem page', ()=> {
     it('Open page problems', async () => {
         await PublicationsPage.hamburgerMenu.click();
         await PublicationsPage.problemsMenuItem.click();
+        await browser.pause(2000);
         await expect(ProblemsPage.pageTitle).toHaveText('problems');
     });
 
@@ -76,23 +77,24 @@ describe('Checking Ploblem page', ()=> {
     it('arrow sorting by ASC is displayed for [Problem name] column', async() =>{
         await ProblemsPage.problemNameField.click();
         await browser.pause(2000);
-        await expect(ProblemsPage.iconSortAscProblemName).toExist(true);
+        const sort = await ProblemsPage.iconSortProblemName.getAttribute("aria-sort");
+        await expect(sort).toEqual('ascending');
     });
 
 
     // it('Arrow sorting by ASC works correctly for [Problem name] column', async() =>{
     //
-    //     function  arrayRows(i,column) {
+    //     function  arrayRows(limit,column) {
     //         const arrayRows =[];
     //         let element;
     //
-    //         for(i =1; i < 6; i++){
-    //             element =  ProblemsPage.problemsRowsTable(`${i}`, "Problem name").getText;
+    //         for(let i = 1; i < limit; i++){
+    //             element = ("i", "Problem name").getText;
     //             arrayRows.push(element);
-    //             console.log(element)
     //         }
     //         return arrayRows;
     //     };
+    //
     //
     //     arrayRows(6, "Problem name");
     //
@@ -112,19 +114,20 @@ describe('Checking Ploblem page', ()=> {
     //
     //     //await expect(problemsASC.sort((a,b)=> b-a).join(',')).toEqual(problemsASC).join(',');
     //
-    // });
+    //});
 
 
     it('arrow sorting by DESC is displayed for [Problem name] column', async() =>{
         await ProblemsPage.problemNameField.click();
         await browser.pause(2000);
-        await expect(ProblemsPage.iconSortDescProblemName).toBePresent(true);
+        const sort = await ProblemsPage.iconSortProblemName.getAttribute('aria-sort')
+        await expect(sort).toEqual('descending');
     });
 
     it('problems can be unsorted for [Problem name] column', async() =>{
         await ProblemsPage.problemNameField.click();
         await browser.pause(2000);
-        await expect(ProblemsPage.iconSortAscProblemName).not.toBePresent(true);
+        await expect(ProblemsPage.iconSortProblemName.getCSSProperty('aria-sort')).not.toExist();
     });
 
 
@@ -137,7 +140,42 @@ describe('Checking Ploblem page', ()=> {
         await expect(ProblemsPage.iconFilterNumber).toHaveText('0');
     });
 
+    it('user can hide [Problem name] column', async() =>{
+        await ProblemsPage.problemNameField.moveTo();
+        await ProblemsPage.problemNameFieldMenuIcon.click();
+        await browser.pause(1000);
+        await ProblemsPage.listMenuHide.click();
+        await browser.pause(1000);
+        await expect(ProblemsPage.problemNameField).not.toBePresent();
+    })
 
+    it('user can return back [Problem name] column', async() =>{
+        await ProblemsPage.iconColumns.click();
+        await browser.pause(1000);
+        await ProblemsPage.findColumnsProblem.click();
+        await ProblemsPage.iconColumns.click();
+        await expect(ProblemsPage.problemNameField).toBePresent();
+    })
+
+    it('user can change density', async() =>{
+        await ProblemsPage.iconDensity.click();
+        await browser.pause(1000);
+        await ProblemsPage.densityCompact.click();
+        const sizeCompact = await ProblemsPage.firstRow.getCSSProperty('max-height');
+        await browser.pause(1000);
+        await ProblemsPage.iconDensity.click();
+        await browser.pause(1000);
+        await ProblemsPage.densityStandart.click();
+        const sizeStandart = await ProblemsPage.firstRow.getCSSProperty('max-height');
+        await browser.pause(1000);
+        await ProblemsPage.iconDensity.click();
+        await browser.pause(1000);
+        await ProblemsPage.densityComfortable.click();
+        const sizeComfortable = await ProblemsPage.firstRow.getCSSProperty('max-height');
+        console.log(sizeCompact, sizeStandart,sizeComfortable);
+        await expect(sizeCompact).not.toEqual(sizeStandart);
+        await expect(sizeCompact).not.toEqual(sizeComfortable);
+    })
 
     it('API - delete problems', async () => {
         const adminLoginRes = (await userLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD));

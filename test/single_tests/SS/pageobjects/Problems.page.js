@@ -30,16 +30,44 @@ class ProblemsPage extends Page {
         return $('//li[contains(text(),"Sort by ASC")]');
     }
 
-    get iconSortAscProblemName() {
-        return $('//div[@data-field="Problem name"and@aria-sort="ascending"]');
+    get listMenuHide() {
+        return $('//li[contains(text(),"Hide")]');
     }
 
-    get iconSortDescProblemName() {
-        return $('//div[@data-field="Problem name"and@aria-sort="descending"]');
+    get listMenuShow() {
+        return $('//li[contains(text(),"Show columns")]');
+    }
+
+    get iconSortProblemName() {
+        return $('//div[@data-field="Problem name"and@tabindex="0"]');
     }
 
     get inputFilterValue() {
         return $('//input[@placeholder="Filter value"]');
+    }
+
+    get iconColumns() {
+        return $('//button[@aria-label="Select columns"]');
+    }
+
+    get findColumnsProblem() {
+        return $('//span[contains(text(),"Problem name")]');
+    }
+
+    get iconDensity() {
+        return $('//button[@aria-label="Density"]');
+    }
+
+    get densityCompact(){
+        return $('(//div[@class="MuiListItemIcon-root css-1f8bwsm"])[1]');
+    }
+
+    get densityStandart(){
+        return $('(//div[@class="MuiListItemIcon-root css-1f8bwsm"])[2]');
+    }
+
+    get densityComfortable(){
+        return $('(//div[@class="MuiListItemIcon-root css-1f8bwsm"])[3]');
     }
 
     get iconFilter() {
@@ -58,12 +86,15 @@ class ProblemsPage extends Page {
         return $$(`//div[@data-field="${column}"]/a[normalize-space("${text}")]`);
     }
 
-    //  problemsRowsTable(i,column) {
-    //      return $(`//div[@data-rowindex="${i}"]/div[@data-field="${column}"]/a`);
-    // }
+     problemsRowsTable(i,column) {
+         return $(`//div[@data-rowindex="${i}"]/div[@data-field="${column}"]/a`);
+    }
 
     //return $(`//div[@data-field="${column}"and@role="cell"]/a`);
     //     }
+    get firstRow(){
+        return $('//div[@role="cell"]');
+    }
 
     open() {
         return super.open('./problems');

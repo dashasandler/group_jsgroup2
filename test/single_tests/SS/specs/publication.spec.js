@@ -29,8 +29,9 @@ describe('Create new publication', () => {
         await expect(PublicationsPage.publicationTitle).toHaveTextContaining(title);
     });
 
-    it('user can like new publication', async () => {
+    it('user can open and like new publication', async () => {
         await PublicationsPage.publicationTitle.click();
+        await browser.pause(2000);
         await PublicationViewPage.likeButton.click();
         await expect(PublicationViewPage.likesNumber).toHaveText("1");
 
@@ -46,9 +47,11 @@ describe('Create new publication', () => {
     });
 
     it('user can unlike new publication', async () => {
+        await browser.refresh();
         await PublicationsPage.publicationTitle.click();
         await browser.pause(2000);
         await PublicationViewPage.likeButton.click();
+        await browser.pause(2000);
         await expect(PublicationViewPage.likesNumber).toHaveText("");
     });
 
@@ -57,6 +60,7 @@ describe('Create new publication', () => {
         await PublicationsPage.publicationsMenuItem.click();
         await browser.pause(2000);
         await expect(PublicationsPage.likesNumber).toHaveText("");
+
 
     });
 });
