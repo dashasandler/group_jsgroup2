@@ -128,7 +128,7 @@
     "fill-range": "^7.0.1",
     "find-up": "^4.1.0",
     "flat": "^5.0.2",
-    "follow-redirects": "^1.14.6",
+    "follow-redirects": "^1.14.7",
     "fs-constants": "^1.0.0",
     "fs-extra": "^10.0.0",
     "fs-minipass": "^2.1.0",
