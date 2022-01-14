@@ -19,7 +19,7 @@ module.exports = {
 
     newProblem: {
         title: "New Problem.Google."+ Math.random(1000),
-        company: "Google",
+        company: "617a184bb95fa7cfcbf1b831", //Google
         position: "Quality Assurance Engineer",
         content: "Search the world's information, including webpages, images, videos and more."
     },
