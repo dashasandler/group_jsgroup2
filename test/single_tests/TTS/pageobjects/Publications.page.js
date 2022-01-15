@@ -22,6 +22,13 @@ class PublicationsPage extends Page {
     get publicationTitle(){
         return $('div.pb-4>div:nth-child(2)>div>a')
     }
+    get publicationDescription(){
+        return $('//div[@class="description text-break"]')
+    }
+    get loadMoreButton(){
+        return $('//div[@class="btn-link"]')
+    }
+
 
     open() {
         return super.open('/publications');

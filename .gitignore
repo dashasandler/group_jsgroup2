@@ -8,4 +8,4 @@ backup
 /test_data/credentials.js
 jsconfig.json
 wdio.conf.js
-
+/test_data/testdata.js

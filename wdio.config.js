@@ -7,7 +7,7 @@ exports.config = {
         //'./test/e2e/api/signupApi.spec.js'
 
 
-    
+
         './test/single_tests/ab80/specs/problemsApi.spec.js',
 
 

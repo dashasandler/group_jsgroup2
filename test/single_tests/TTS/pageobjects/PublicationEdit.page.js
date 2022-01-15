@@ -1,6 +1,6 @@
 const Page = require('./Page');
 
-class CreatePublicationPage extends Page {
+class PublicationEditPage extends Page {
     get pageTitle() {
         return $('div>h6');
     }
@@ -29,21 +29,21 @@ class CreatePublicationPage extends Page {
         return $('button.mr-3');
     }
 
-    async createPublication(title, image, description, content) {
-        await this.open();
-        await this.publicationTitle.setValue(title);
-        await this.publicationImage.setValue(image);
-        await this.publicationDescription.setValue(description);
-        await this.publicationContent.setValue(content);
+    // async createPublication(title, image, description, content) {
+    //     await this.open();
+    //     await this.publicationTitle.setValue(title);
+    //     await this.publicationImage.setValue(image);
+    //     await this.publicationDescription.setValue(description);
+    //     await this.publicationContent.setValue(content);
 
         //await this.publicationTitle.focus();
         //await this.saveButton.click();
-    }
+    // }
 
     open() {
-        return super.open('/publications/create');
+        return super.open('./edit');
         //return super.open('./publications/create');
     }
 }
 
-module.exports = new CreatePublicationPage();
+module.exports = new PublicationEditPage();
