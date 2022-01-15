@@ -18,6 +18,19 @@ class ProblemsPage extends Page {
         return $('//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"Problem name")]');
     }
 
+
+    fieldNameColumn(column) {
+        return $(`//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"${column}")]`);
+    }
+
+    get positionField() {
+        return $('//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"Position")]');
+    }
+
+    get companyField() {
+        return $('//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"Company")]');
+    }
+
     get problemNameFieldMenuIcon() {
         return $('(//div[@class="MuiDataGrid-menuIcon"]/button)[1]');
     }
@@ -50,8 +63,20 @@ class ProblemsPage extends Page {
         return $('//button[@aria-label="Select columns"]');
     }
 
-    get findColumnsProblem() {
-        return $('//span[contains(text(),"Problem name")]');
+    findColumnsByName(column) {
+        return $(`//span[contains(text(),"${column}")]`);
+    }
+
+    get showAllColumns() {
+        return $('//button[contains(text(),"Show all")]');
+    }
+
+    get hideAllColumns() {
+        return $('//button[contains(text(),"Hide all")]');
+    }
+
+    get emptyTable(){
+        return $('//div[@class="MuiDataGrid-cell"]')
     }
 
     get iconDensity() {
@@ -86,12 +111,14 @@ class ProblemsPage extends Page {
         return $$(`//div[@data-field="${column}"]/a[normalize-space("${text}")]`);
     }
 
-     problemsRowsTable(i,column) {
-         return $(`//div[@data-rowindex="${i}"]/div[@data-field="${column}"]/a`);
+     problemRowsTableInColumn(column) {
+        return $$(`//div[@data-field="${column}"and@role="cell"]/a`);
+     }
+
+    problemRowByRowindexInColumn(i, column){
+        return $(`//div[@data-rowindex="${i}"]/div[@data-field="${column}"]/a`)
     }
 
-    //return $(`//div[@data-field="${column}"and@role="cell"]/a`);
-    //     }
     get firstRow(){
         return $('//div[@role="cell"]');
     }

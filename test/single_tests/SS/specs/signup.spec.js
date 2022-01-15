@@ -23,10 +23,8 @@ describe('User SignUp', () => {
 
     it ("User can go to login page and return back to sign up page", async () => {
         await SignupPage.loginLink.click();
-        // await browser.pause(2000);
         await expect(LoginPage.loginLabel).toHaveText('Login');
         await LoginPage.signupLink.click()
-        // await browser.pause(2000);
         await expect(SignupPage.signupLabel).toHaveText('Sign Up');
     });
 
