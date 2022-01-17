@@ -5,6 +5,8 @@ const Credentials = require('../test_data/credentials');
 const { clearInputValue } = require('../../../../methods/helper');
 const SignupPage = require("../pageobjects/Signup.page");
 const { incorrectEmail } = require("../test_data/credentials");
+const {registerUser, registerActivation} = require("../../../../methods/api.methods");
+const {userLogin, deleteUser} = require("../../../../methods/axios.methods");
 
 describe('LOGIN PAGE', () => {
 
@@ -22,17 +24,15 @@ describe('LOGIN PAGE', () => {
     it('user can not login with not registered email', async () => {
         await LoginPage.inputEmail.setValue(Credentials.userWrongData.email);
         await LoginPage.inputPassword.setValue(Credentials.user.password);
-        await LoginPage.btnSubmit.click()
+        await LoginPage.btnSubmit.click();
         const res = await LoginPage.alertMsg.getText();
         await expect(res).toEqual("User with provided email does not exist");
     });
 
     it('user can not login with empty email field', async () => {
         await clearInputValue(await LoginPage.inputEmail);
-        await browser.pause(2000);
         await LoginPage.btnSubmit.click();
         await expect(LoginPage.loginLabel).toHaveText('Login');
-
     });
 
     it('user can login with correct email', async () => {
@@ -53,10 +53,8 @@ describe('LOGIN PAGE', () => {
 
     it('user can not login with empty password field', async () => {
         await clearInputValue(await LoginPage.inputPassword);
-        await browser.pause(2000);
         await LoginPage.btnSubmit.click();
         await expect(LoginPage.loginLabel).toHaveText('Login');
-
     });
 
     it('user can login with correct password', async () => {
@@ -84,5 +82,54 @@ describe('LOGIN PAGE', () => {
             await clearInputValue(await PasswordResetPage.inputEmail);
          }
     });
+
+    let result;
+    const newEmail = Credentials.newUser.email;
+    const newPassword = Credentials.newUser.password;
+
+    it('API - registration', async () => {
+        result = await registerUser(newEmail, newPassword);
+        expect(!!result.activationLink).toBe(true);
+    });
+
+    it ("User can't log in after sign up  without activation", async () => {
+        await PasswordResetPage.backToLoginLink.click();
+        await browser.pause(500);
+        await PasswordResetPage.backToLoginLink.click();
+        await browser.pause(500);
+        await LoginPage.inputEmail.setValue(newEmail);
+        await LoginPage.inputPassword.setValue(newPassword);
+        await LoginPage.btnSubmit.click();
+        await expect(LoginPage.alertNoActivation).toHaveText("User is not activated. Please use activation link from registration email!");
+        await expect(LoginPage.alertActivationLink).toHaveText("Or resend new activation link");
+        await browser.refresh();
+    });
+
+    it('API - user activation', async () => {
+        await registerActivation(result.activationLink);
+        expect(result.activationString).toHaveText("Activation Successful!");
+    });
+
+    it ('User can log in after activation', async () => {
+        await browser.pause(500);
+        await LoginPage.inputEmail.setValue(newEmail);
+        await LoginPage.inputPassword.setValue(newPassword);
+        await LoginPage.btnSubmit.click();
+        await expect(Publications.pageTitle).toHaveText('publications');
+    });
+
+    let userID;
+    it('API -login', async () =>{
+        userID = await (userLogin(newEmail, newPassword));
+        await expect(userID.length).not.toEqual(0);
+    })
+
+    it("API -user delete", async ()=>{
+        const adminLoginRes = (await userLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD));
+        const admToken = adminLoginRes.accessToken;
+        result = await deleteUser(userID,admToken);
+        expect(result).toHaveTextContaining("The user has been deleted");
+    });
+
 
 });

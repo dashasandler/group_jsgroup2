@@ -18,17 +18,8 @@ class ProblemsPage extends Page {
         return $('//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"Problem name")]');
     }
 
-
     fieldNameColumn(column) {
         return $(`//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"${column}")]`);
-    }
-
-    get positionField() {
-        return $('//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"Position")]');
-    }
-
-    get companyField() {
-        return $('//div[@class="MuiDataGrid-columnHeaderTitle css-cc8tf1" and contains(text(),"Company")]');
     }
 
     get problemNameFieldMenuIcon() {
@@ -39,16 +30,8 @@ class ProblemsPage extends Page {
         return $('//li[contains(text(),"Filter")]');
     }
 
-    get listMenuSortByAsc() {
-        return $('//li[contains(text(),"Sort by ASC")]');
-    }
-
     get listMenuHide() {
         return $('//li[contains(text(),"Hide")]');
-    }
-
-    get listMenuShow() {
-        return $('//li[contains(text(),"Show columns")]');
     }
 
     get iconSortProblemName() {
@@ -57,6 +40,10 @@ class ProblemsPage extends Page {
 
     get inputFilterValue() {
         return $('//input[@placeholder="Filter value"]');
+    }
+
+    get chooseOperators() {
+        return $('//div[@class="MuiFormControl-root css-75e5xq"]//select');
     }
 
     get iconColumns() {
@@ -96,7 +83,7 @@ class ProblemsPage extends Page {
     }
 
     get iconFilter() {
-        return $('//div[@class ="MuiDataGrid-toolbarContainer css-13vjeky"]/button[2]');
+        return $('//button[contains(.,"Filters")]');
     }
 
     get iconFilterNumber() {
@@ -112,7 +99,7 @@ class ProblemsPage extends Page {
     }
 
      problemRowsTableInColumn(column) {
-        return $$(`//div[@data-field="${column}"and@role="cell"]/a`);
+         return $$(`//div[@data-field="${column}"and@tabindex="-1"]`)
      }
 
     problemRowByRowindexInColumn(i, column){
@@ -121,6 +108,18 @@ class ProblemsPage extends Page {
 
     get firstRow(){
         return $('//div[@role="cell"]');
+    }
+
+    get nextPageArrow(){
+        return $('//button[@title="Go to next page"]')
+    }
+
+    get previousPageArrow() {
+        return $('//button[@title="Go to previous page"]')
+    }
+
+    get paginationNote() {
+        return $('//p[@class="MuiTablePagination-displayedRows css-1chpzqh"]')
     }
 
     open() {

@@ -1,9 +1,13 @@
 const LoginPage = require('../pageobjects/Login.page');
 const SignupPage = require('../pageobjects/Signup.page');
+const PublicationPage = require('../pageobjects/Publications.page');
 const Credentials = require('../test_data/credentials');
-const { clearInputValue } = require('../../../../methods/helper')
-const incorrectEmail  = require("../test_data/credentials");
-const incorrectPassword  = require("../test_data/credentials");
+const { clearInputValue } = require('../../../../methods/helper');
+const { incorrectEmail} = require("../test_data/credentials");
+const {incorrectPassword}  = require("../test_data/credentials");
+const {registerUser, registerActivation} = require("../../../../methods/api.methods");
+const Publications = require("../pageobjects/Publications.page");
+const {userLogin, deleteProblem, deleteUser} = require("../../../../methods/axios.methods");
 
 
 describe('User SignUp', () => {
@@ -29,7 +33,6 @@ describe('User SignUp', () => {
     });
 
     it ('User can not  sign up with incorrect e-mail', async () => {
-
         for (let email of incorrectEmail){
           await SignupPage.inputEmail.setValue(email);
           await browser.keys('Tab');
@@ -52,22 +55,22 @@ describe('User SignUp', () => {
         await SignupPage.inputEmail.setValue(Credentials.newUser.email);
         await SignupPage.inputPassword.setValue(Credentials.newUser.password);
         await SignupPage.btnSubmit.click();
-        await browser.pause(2000);
+        await browser.pause(500);
         await expect(SignupPage.infoRegSuccess).toHaveText('Registration successful!');
         await expect(SignupPage.infoEmailSent).toHaveText('Activation link was sent to email');
         await browser.refresh();
     });
 
-
-    it ("User after sign up can't log in without activation", async () => {
+    it ("User can't log in after sign up  without activation", async () => {
         await SignupPage.loginLink.click();
-        await browser.pause(2000);
+        await browser.pause(500);
         await SignupPage.loginLink.click();
-        await LoginPage.inputEmail.setValue(Credentials.newUser.email);
-        await LoginPage.inputPassword.setValue(Credentials.newUser.password);
+        await LoginPage.inputEmail.setValue(newEmail);
+        await LoginPage.inputPassword.setValue(newPassword);
         await LoginPage.btnSubmit.click()
         await expect(LoginPage.alertNoActivation).toHaveText("User is not activated. Please use activation link from registration email!");
         await expect(LoginPage.alertActivationLink).toHaveText("Or resend new activation link");
+        await browser.refresh();
     });
 
 });

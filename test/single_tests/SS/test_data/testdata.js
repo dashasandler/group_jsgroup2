@@ -38,8 +38,23 @@ module.exports = {
         content: "Search the world's information, including webpages, images, videos and more."
     },
 
-    filter:{
-        text:" title",
-        rowNumber: 3,
+    dataContainsProblemName:{
+        data:["river"," jazz", " BBQ ", "jazz 5 ", "r B", "Colorado river or BBQ jazz 5","Colorado river or BBQ jazz"],
+        rowNumber: [5, 5, 5, 0, 5, 1, 5]
+    },
+
+    dataEqualsProblemName:{
+        data:["Colorado river or BBQ jazz 5", "Colorado"," Colorado river or BBQ jazz 5","Colorado river or BBQ jazz 5 "],
+        rowNumber: [1, 0, 0, 0]
+    },
+
+    dataStartProblemName:{
+        data:["Colorado river or BBQ jazz ", "Colorado"," Colorado river or BBQ jazz 5","river or BBQ jazz 5"],
+        rowNumber: [5, 5, 0, 0]
+    },
+
+    dataEndProblemName:{
+        data:["jazz 1", "Colorado river or BBQ jazz 5","river or BBQ jazz 5", "river or BBQ jazz 5 "],
+        rowNumber: [1, 1, 1, 0]
     }
 };

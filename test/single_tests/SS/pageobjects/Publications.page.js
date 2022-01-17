@@ -25,7 +25,6 @@ class PublicationsPage extends Page {
         return $('#problems');
     }
 
-
     get addPublication() {
         return $('a>button');
     }
@@ -41,7 +40,6 @@ class PublicationsPage extends Page {
     get likesNumber() {
         return $('(//span[@class="ml-1"])[1]')
     }
-
 
     open() {
         return super.open('./publications');
